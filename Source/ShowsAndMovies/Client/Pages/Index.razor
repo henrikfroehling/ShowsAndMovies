@@ -1,3 +1,48 @@
 ﻿@page "/"
 
 <h1>Shows and Movies</h1>
+
+<div class="main">
+    <h2>Trending Shows</h2>
+    <div class="d-flex">
+        @if (trendingShows != null)
+        {
+            @foreach (ITraktTrendingShow show in trendingShows)
+            {
+                <div class="card bg-light m-2">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@show.Title</h5>
+                        <p class="card-text">@show.Overview</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <br />
+    <h2>Trending Movies</h2>
+    <div class="d-flex">
+        @if (trendingMovies != null)
+        {
+            @foreach (ITraktTrendingMovie movie in trendingMovies)
+            {
+                <div class="card bg-light m-2">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@movie.Title</h5>
+                        <p class="card-text">@movie.Overview</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    List<ITraktTrendingShow> trendingShows;
+    List<ITraktTrendingMovie> trendingMovies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        trendingShows = await TraktService.GetTrendingShowsAsync();
+        trendingMovies = await TraktService.GetTrendingMoviesAsync();
+    }
+}
