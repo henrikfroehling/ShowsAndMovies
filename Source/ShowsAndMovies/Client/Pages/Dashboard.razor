@@ -1,0 +1,64 @@
+﻿@page "/"
+@using TraktNet.Objects.Get.Shows
+@using TraktNet.Objects.Get.Movies
+@inject TraktService traktService
+
+<h1>Dashboard</h1>
+<h2>Trending Shows</h2>
+<div class="d-flex">
+    @if (trendingShows != null)
+    {
+        @foreach (ITraktTrendingShow show in trendingShows)
+        {
+            <div class="card bg-light m-2">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@show.Title</h5>
+                    <p class="card-text">
+                        @if (show.Overview.Length > 20)
+                        {
+                            @(show.Overview.Substring(0, 20) + "...")
+                        }
+                        else
+                        {
+                            @show.Overview
+                        }
+                    </p>
+                </div>
+            </div>
+        }
+    }
+</div>
+<br />
+<h2>Trending Movies</h2>
+<div class="d-flex">
+    @if (trendingMovies != null)
+    {
+        @foreach (ITraktTrendingMovie movie in trendingMovies)
+        {
+            <div class="card bg-light m-2">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@movie.Title</h5>
+                    @if (movie.Overview.Length > 20)
+                    {
+                        @(movie.Overview.Substring(0, 20) + "...")
+                    }
+                    else
+                    {
+                        @movie.Overview
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    List<ITraktTrendingShow> trendingShows;
+    List<ITraktTrendingMovie> trendingMovies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        trendingShows = await traktService.GetTrendingShowsAsync();
+        trendingMovies = await traktService.GetTrendingMoviesAsync();
+    }
+}
