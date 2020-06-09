@@ -5,9 +5,10 @@
 
 <h1>Dashboard</h1>
 <h2>Trending Shows</h2>
-<div class="d-flex">
-    @if (trendingShows != null)
-    {
+
+@if (trendingShows != null)
+{
+    <div class="d-flex">
         @foreach (ITraktTrendingShow show in trendingShows)
         {
             <div class="card bg-light m-2">
@@ -26,13 +27,15 @@
                 </div>
             </div>
         }
-    }
-</div>
+    </div>
+}
+
 <br />
 <h2>Trending Movies</h2>
-<div class="d-flex">
-    @if (trendingMovies != null)
-    {
+
+@if (trendingMovies != null)
+{
+    <div class="d-flex">
         @foreach (ITraktTrendingMovie movie in trendingMovies)
         {
             <div class="card bg-light m-2">
@@ -49,8 +52,8 @@
                 </div>
             </div>
         }
-    }
-</div>
+    </div>
+}
 
 @code {
     List<ITraktTrendingShow> trendingShows;
