@@ -11,15 +11,20 @@ namespace ShowsAndMovies.Shared
 {
     public class TraktService
     {
-        private static readonly TraktClient _client = new TraktClient("", "");
+        private readonly TraktClient _client;
 
-        public static async Task<List<ITraktTrendingShow>> GetTrendingShowsAsync()
+        public TraktService()
+        {
+            _client = new TraktClient("", "");
+        }
+
+        public async Task<List<ITraktTrendingShow>> GetTrendingShowsAsync()
         {
             TraktPagedResponse<ITraktTrendingShow> trendingShows = await _client.Shows.GetTrendingShowsAsync(new TraktExtendedInfo { Full = true });
             return trendingShows.ToList();
         }
 
-        public static async Task<List<ITraktTrendingMovie>> GetTrendingMoviesAsync()
+        public async Task<List<ITraktTrendingMovie>> GetTrendingMoviesAsync()
         {
             TraktPagedResponse<ITraktTrendingMovie> trendingMovies = await _client.Movies.GetTrendingMoviesAsync(new TraktExtendedInfo { Full = true });
             return trendingMovies.ToList();
