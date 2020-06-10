@@ -7,9 +7,9 @@ using TraktNet.Objects.Get.Shows;
 using TraktNet.Requests.Parameters;
 using TraktNet.Responses;
 
-namespace ShowsAndMovies.Services
+namespace ShowsAndMovies.Services.Trakt
 {
-    public class TraktService
+    public class TraktService : ITraktService
     {
         private readonly TraktClient _client;
 

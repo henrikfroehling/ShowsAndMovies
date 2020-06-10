@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using ShowsAndMovies.Services;
+using ShowsAndMovies.Services.Trakt;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace ShowsAndMovies
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<TraktService>();
+            builder.Services.AddSingleton<ITraktService, TraktService>();
 
             await builder.Build().RunAsync();
         }
