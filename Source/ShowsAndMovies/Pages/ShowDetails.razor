@@ -1,0 +1,40 @@
+﻿@page "/shows/{ShowSlug}"
+@using Services.Trakt
+@using TraktNet.Objects.Get.Shows
+@inject ITraktService traktService
+
+@if (show == null)
+{
+    <h1>Loading show details...</h1>
+}
+else
+{
+    <div class="d-inline-flex flex-wrap">
+        <div class="card bg-light m-2">
+            <div class="card-body">
+                <h5 class="card-title">@show.Title</h5>
+                <p class="card-subtitle mb-2 text-muted">@show.Network</p>
+                <p class="card-text">@show.Overview</p>
+                <p class="card-text">
+                    @foreach (string genre in show.Genres)
+                    {
+                        <a href="/genres/@(genre)" class="card-link">@genre</a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+@code
+{
+    ITraktShow show;
+
+    [Parameter]
+    public string ShowSlug { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        show = await traktService.GetShowDetails(ShowSlug);
+    }
+}

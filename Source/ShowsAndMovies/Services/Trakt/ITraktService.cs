@@ -10,5 +10,7 @@ namespace ShowsAndMovies.Services.Trakt
         Task<List<ITraktTrendingShow>> GetTrendingShowsAsync();
 
         Task<List<ITraktTrendingMovie>> GetTrendingMoviesAsync();
+
+        Task<ITraktShow> GetShowDetails(string slug);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TraktNet;
@@ -28,6 +28,11 @@ namespace ShowsAndMovies.Services.Trakt
         {
             TraktPagedResponse<ITraktTrendingMovie> trendingMovies = await _client.Movies.GetTrendingMoviesAsync(new TraktExtendedInfo { Full = true });
             return trendingMovies.ToList();
+        }
+
+        public async Task<ITraktShow> GetShowDetails(string slug)
+        {
+            return (await _client.Shows.GetShowAsync(slug, new TraktExtendedInfo { Full = true })).Value;
         }
     }
 }
