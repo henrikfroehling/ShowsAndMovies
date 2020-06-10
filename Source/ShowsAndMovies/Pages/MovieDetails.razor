@@ -1,0 +1,39 @@
+﻿@page "/movies/{MovieSlug}"
+@using Services.Trakt
+@using TraktNet.Objects.Get.Movies
+@inject ITraktService traktService
+
+@if (movie == null)
+{
+    <h1>Loading movie details...</h1>
+}
+else
+{
+    <div class="d-inline-flex flex-wrap">
+        <div class="card bg-light m-2">
+            <div class="card-body">
+                <h5 class="card-title">@movie.Title</h5>
+                <p class="card-text">@movie.Overview</p>
+                <p class="card-text">
+                    @foreach (string genre in movie.Genres)
+                    {
+                        <a href="/genres/@(genre)" class="card-link">@genre</a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+@code
+{
+    ITraktMovie movie;
+
+    [Parameter]
+    public string MovieSlug { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        movie = await traktService.GetMovieDetails(MovieSlug);
+    }
+}

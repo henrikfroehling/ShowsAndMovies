@@ -34,5 +34,10 @@ namespace ShowsAndMovies.Services.Trakt
         {
             return (await _client.Shows.GetShowAsync(slug, new TraktExtendedInfo { Full = true })).Value;
         }
+
+        public async Task<ITraktMovie> GetMovieDetails(string slug)
+        {
+            return (await _client.Movies.GetMovieAsync(slug, new TraktExtendedInfo { Full = true })).Value;
+        }
     }
 }
