@@ -7,7 +7,7 @@ using TraktNet.Objects.Get.Shows;
 using TraktNet.Requests.Parameters;
 using TraktNet.Responses;
 
-namespace ShowsAndMovies.Shared
+namespace ShowsAndMovies.Services
 {
     public class TraktService
     {
